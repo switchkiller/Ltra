@@ -6,7 +6,7 @@ int lm1=4;
 int lm2=5;
 int sensor[6]={0,0,0,0,0,0}
 
-
+void shutdown();
 void foward();
 void reverse();
 void left();
@@ -29,40 +29,40 @@ void loop()
 {  
   int flag=0;
   int sensor[1]=digitalRead(A0);
-  int sensor[2]=analogRead(A1);
-  int sensor[3]=analogRead(A2);
-  int sensor[4]=analogRead(A3);
-  int sensor[5]=analogRead(A4);
-  int sensor[6]=analogRead(A5);
+  int sensor[2]=digitalRead(A1);
+  int sensor[3]=digitalRead(A2);
+  int sensor[4]=digitalRead(A3);
+  int sensor[5]=digitalRead(A4);
+  int sensor[6]=digitalRead(A5);
 
                      
   if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==LOW) && (sensor[4]==LOW) && (sensor[5]==LOW) && (sensor[6]==LOW)) //SHUTDOWN CONDITION
-  {	digitalWrite(rm1,LOW);
-        digitalWrite(rm2,LOW);
-        digitalWrite(lm1,LOW);
-        digitalWrite(lm2,LOW);
+  {	    
+    shutdown();
   }
  
   if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) // FORWARD
-  {	digitalWrite(rm1,HIGH);
-        digitalWrite(rm2,LOW);
-        digitalWrite(lm1,HIGH);
-        digitalWrite(lm2,LOW);
+  { 
+    foward();
   }
 
-  if((sensor[1]==LOW)&& (sensor[2]==HIGH) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) // FORWARD
-  {	digitalWrite(rm1,HIGH);
-        digitalWrite(rm2,LOW);
-        digitalWrite(lm1,LOW);
-        digitalWrite(lm2,LOW);
+  if((sensor[1]==LOW)&& (sensor[2]==HIGH) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) //CURVE RIGHT TURN
+  {	
+    if (sensor[2]!=LOW)
+      right();
+    else if(sensor[2]==HIGH)
+      foward();
   }
 
-  if((sensor[1]==LOW)&& (sensor[2]==HIGH) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) // FORWARD
-  {	digitalWrite(rm1,HIGH);
-        digitalWrite(rm2,LOW);
-        digitalWrite(lm1,LOW);
-        digitalWrite(lm2,LOW);
+  if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==HIGH) && (sensor[6]==LOW)) // CURVE LEFT TURN
+  {
+    if (sensor[5]!==LOW)
+      left();
+    else if (sensor[5]==HIGH)
+      foward();
   }
+
+  
 
 
 
@@ -175,4 +175,60 @@ void loop()
       
       flag=1;
       }
+}
+
+void foward()
+{
+        digitalWrite(rm1,HIGH);
+        digitalWrite(rm2,LOW);
+        digitalWrite(lm1,HIGH);
+        digitalWrite(lm2,LOW);
+}
+
+void reverse()
+{
+        digitalWrite(rm1,LOW);
+        digitalWrite(rm2,HIGH);
+        digitalWrite(lm1,LOW);
+        digitalWrite(lm2,HIGH);
+}
+
+void shutdown()
+{
+        digitalWrite(rm1,LOW);
+        digitalWrite(rm2,LOW);
+        digitalWrite(lm1,LOW);
+        digitalWrite(lm2,LOW);
+}
+
+void right()
+{
+        digitalWrite(rm1,LOW);
+        digitalWrite(rm2,LOW);
+        digitalWrite(lm1,HIGH);
+        digitalWrite(lm2,LOW);
+}
+
+void powerRight()
+{
+        digitalWrite(rm1,LOW);
+        digitalWrite(rm2,HIGH);
+        digitalWrite(lm1,HIGH);
+        digitalWrite(lm2,LOW);
+}
+
+void left()
+{
+  digitalWrite(rm1,HIGH);
+  digitalWrite(rm2,LOW);
+  digitalWrite(lm1,LOW);
+  digitalWrite(lm2,LOW);
+}
+
+void powerLeft()
+{
+  digitalWrite(rm1,HIGH);
+  digitalWrite(rm2,LOW);
+  digitalWrite(lm1,LOW);
+  digitalWrite(lm2,HIGH);
 }
