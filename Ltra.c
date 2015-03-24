@@ -35,146 +35,42 @@ void loop()
   int sensor[5]=digitalRead(A4);
   int sensor[6]=digitalRead(A5);
 
-                     
+  
+  if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==LOW) && (sensor[4]==LOW) && (sensor[5]==LOW) && (sensor[6]==LOW)) //L-junction
+  { erial.printf("L-junction invaded\n");   
+    forward();
+  }
+
   if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==LOW) && (sensor[4]==LOW) && (sensor[5]==LOW) && (sensor[6]==LOW)) //SHUTDOWN CONDITION
-  {	    
+  {	serial.printf("System-shutdown\n");    
     shutdown();
   }
  
   if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) // FORWARD
-  { 
+  { serial.printf("Go forward\n");    
     foward();
   }
 
   if((sensor[1]==LOW)&& (sensor[2]==HIGH) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) //CURVE RIGHT TURN
-  {	
+  {	serial.printf("Curve detected!\n");
     if (sensor[2]!=LOW)
+      serial.printf("Right\n");
       right();
     else if(sensor[2]==HIGH)
+      serial.printf("Left\n");
       foward();
   }
 
   if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==HIGH) && (sensor[6]==LOW)) // CURVE LEFT TURN
-  {
+  { serial.printf("Curve detected!\n");    
     if (sensor[5]!==LOW)
+      serial.printf("Left\n");
       left();
     else if (sensor[5]==HIGH)
+      serial.printf("Go forward\n");  
       foward();
   }
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-  if(a>150 && b>150 && c<150 && d<150 &&  e<150 && f>150)
-      {digitalWrite(rm1,HIGH);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,HIGH);
-      digitalWrite(lm2,LOW);}
-  //BWWWBB
-  if(a>150 && b<150 && c<150 && d<150 &&  e>150 && f>150)
-      {digitalWrite(rm1,HIGH);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,HIGH);
-      digitalWrite(lm2,LOW);}
-  
-  //LEFT    
-  //WWBBBB
-  if(a<150 && b<150 && c>150 && d>150 &&  e>150 && f>150)
-      {digitalWrite(rm1,HIGH);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,LOW);
-      digitalWrite(lm2,LOW);}  
-  //WWWBBB
-  if(a<150 && b<150 && c<150 && d>150 &&  e>150 && f>150)
-      {digitalWrite(rm1,HIGH);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,LOW);
-      digitalWrite(lm2,LOW);} 
-  //WWWWBB
-  if(a<150 && b<150 && c<150 && d<150 &&  e>150 && f>150)
-      {
-        if(flag==1)
-        {
-       digitalWrite(rm1,HIGH);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,LOW);
-      digitalWrite(lm2,LOW);
-        }
-        else
-        {
-          digitalWrite(rm1,HIGH);
-          digitalWrite(rm2,LOW);
-          digitalWrite(lm1,HIGH);
-          digitalWrite(lm2,LOW);
-        }
-      } 
-  //BWWBBB
-  if(a>150 && b<150 && c<150 && d>150 &&  e>150 && f>150)
-      {digitalWrite(rm1,HIGH);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,LOW);
-      digitalWrite(lm2,LOW);}
-
-  //RIGHT    
-  //BBWWWW
-  if(a>150 && b>150 && c<150 && d<150 &&  e<150 && f<150)
-      {
-        if (flag==1)
-        {
-        digitalWrite(rm1,LOW);
-        digitalWrite(rm2,LOW);
-        digitalWrite(lm1,HIGH);
-        digitalWrite(lm2,LOW);
-        }
-      else
-      {
-          digitalWrite(rm1,HIGH);
-          digitalWrite(rm2,LOW);
-          digitalWrite(lm1,HIGH);
-          digitalWrite(lm2,LOW);
-      }
-    }  
-  //BBBWWW
-  if(a>150 && b>150 && c>150 && d<150 &&  e<150 && f<150)
-      {digitalWrite(rm1,LOW);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,HIGH);
-      digitalWrite(lm2,LOW);} 
-  //BBBBWW
-  if(a>150 && b>150 && c>150 && d>150 &&  e<150 && f<150)
-      {digitalWrite(rm1,LOW);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,HIGH);
-      digitalWrite(lm2,LOW);} 
-  //BBBWWB
-  if(a>150 && b>150 && c>150 && d<150 &&  e<150 && f>150)
-      {digitalWrite(rm1,LOW);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,HIGH);
-      digitalWrite(lm2,LOW);}
-      
-  //STOP 
-  
-  //BBBBBB
-  if (a>150 && b>150 && c>150 && d>150 &&  e>150 && f>150)
-      {digitalWrite(rm1,LOW);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,LOW);
-      digitalWrite(lm2,LOW);
-      
-      flag=1;
-      }
 }
 
 void foward()
