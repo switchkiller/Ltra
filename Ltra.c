@@ -37,37 +37,37 @@ void loop()
 
   
   if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==LOW) && (sensor[4]==LOW) && (sensor[5]==LOW) && (sensor[6]==LOW)) //L-junction
-  { erial.printf("L-junction invaded\n");   
+  { Serial.printf("L-junction invaded\n");   
     forward();
   }
 
   if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==LOW) && (sensor[4]==LOW) && (sensor[5]==LOW) && (sensor[6]==LOW)) //SHUTDOWN CONDITION
-  {	serial.printf("System-shutdown\n");    
+  {	Serial.printf("System-shutdown\n");    
     shutdown();
   }
  
   if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) // FORWARD
-  { serial.printf("Go forward\n");    
+  { Serial.printf("Go forward\n");    
     foward();
   }
 
   if((sensor[1]==LOW)&& (sensor[2]==HIGH) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) //CURVE RIGHT TURN
-  {	serial.printf("Curve detected!\n");
+  {	Serial.printf("Curve detected!\n");
     if (sensor[2]!=LOW)
-      serial.printf("Right\n");
+      Serial.printf("Right\n");
       right();
     else if(sensor[2]==HIGH)
-      serial.printf("Left\n");
+      Serial.printf("Left\n");
       foward();
   }
 
   if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==HIGH) && (sensor[6]==LOW)) // CURVE LEFT TURN
-  { serial.printf("Curve detected!\n");    
+  { Serial.printf("Curve detected!\n");    
     if (sensor[5]!==LOW)
-      serial.printf("Left\n");
+      Serial.printf("Left\n");
       left();
     else if (sensor[5]==HIGH)
-      serial.printf("Go forward\n");  
+      Serial.printf("Go forward\n");  
       foward();
   }
 
