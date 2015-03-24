@@ -1,40 +1,81 @@
-//CURVE FOLLOWING
+//WHITE LINE FOLLOWER --CYBERBREAKIN-- 
 
 int rm1=7;
 int rm2=6;
 int lm1=4;
 int lm2=5;
+int sensor[6]={0,0,0,0,0,0}
 
+
+void foward();
+void reverse();
+void left();
+void right();
+void powerLeft();
+void powerRight();
 
 void setup()
 {
-  pinMode(rm1,OUTPUT);
+  pinMode(9,OUTPUT); // PWM--9
+  pinMode(10,OUTPUT); // PWM--10	
+  pinMode(rm1,OUTPUT);		
   pinMode(rm2,OUTPUT);
   pinMode(lm1,OUTPUT);
   pinMode(lm2,OUTPUT);
-  
-  
+  Serial.begin(9600);  
 }
 
 void loop()
 {  
-int flag=0;
-  int a=analogRead(0);
-  int b=analogRead(1);
-  int c=analogRead(2);
-  int d=analogRead(3);
-  int e=analogRead(4);
-  int f=analogRead(5);
+  int flag=0;
+  int sensor[1]=digitalRead(A0);
+  int sensor[2]=analogRead(A1);
+  int sensor[3]=analogRead(A2);
+  int sensor[4]=analogRead(A3);
+  int sensor[5]=analogRead(A4);
+  int sensor[6]=analogRead(A5);
 
                      
- //FORWARD
- //BBWWBB
- if(a>150 && b>150 && c<150 && d<150 &&  e>150 && f>150)
-      {digitalWrite(rm1,HIGH);
-      digitalWrite(rm2,LOW);
-      digitalWrite(lm1,HIGH);
-      digitalWrite(lm2,LOW);}
-  //BBWWWB
+  if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==LOW) && (sensor[4]==LOW) && (sensor[5]==LOW) && (sensor[6]==LOW)) //SHUTDOWN CONDITION
+  {	digitalWrite(rm1,LOW);
+        digitalWrite(rm2,LOW);
+        digitalWrite(lm1,LOW);
+        digitalWrite(lm2,LOW);
+  }
+ 
+  if((sensor[1]==LOW)&& (sensor[2]==LOW) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) // FORWARD
+  {	digitalWrite(rm1,HIGH);
+        digitalWrite(rm2,LOW);
+        digitalWrite(lm1,HIGH);
+        digitalWrite(lm2,LOW);
+  }
+
+  if((sensor[1]==LOW)&& (sensor[2]==HIGH) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) // FORWARD
+  {	digitalWrite(rm1,HIGH);
+        digitalWrite(rm2,LOW);
+        digitalWrite(lm1,LOW);
+        digitalWrite(lm2,LOW);
+  }
+
+  if((sensor[1]==LOW)&& (sensor[2]==HIGH) && (sensor[3]==HIGH) && (sensor[4]==HIGH) && (sensor[5]==LOW) && (sensor[6]==LOW)) // FORWARD
+  {	digitalWrite(rm1,HIGH);
+        digitalWrite(rm2,LOW);
+        digitalWrite(lm1,LOW);
+        digitalWrite(lm2,LOW);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(a>150 && b>150 && c<150 && d<150 &&  e<150 && f>150)
       {digitalWrite(rm1,HIGH);
       digitalWrite(rm2,LOW);
